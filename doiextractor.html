@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extract DOIs</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .container {
+            width: 80%; /* Adjusted width for better responsiveness */
+            max-width: 600px; /* Maximum width to ensure the container looks good on larger screens */
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        textarea {
+            width: calc(100% - 20px); /* Adjusted width to ensure it fits well within the container, accounting for padding */
+            height: 200px; /* Increased height for a larger text area */
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #cccccc;
+            font-family: 'Arial', sans-serif;
+            margin-top: 10px;
+            resize: none; /* Disable resizing to maintain the design */
+        }
+        button {
+            background-color: #4CAF50; /* Changed color for a more modern look */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px; /* Increased margin for better spacing */
+            transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        function extractDOIs() {
+            var text = document.getElementById("textInput").value;
+            var doiPattern = /10.\d{4,9}\/[-._;()/:A-Z0-9]+/gi;
+            var matches = text.match(doiPattern);
+            var uniqueMatches = matches ? Array.from(new Set(matches)) : [];
+            var result = uniqueMatches.length > 0 ? uniqueMatches.join("\n") : "No DOIs found.";
+            document.getElementById("textInput").value = result;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>DOI Extractor</h2>
+        <textarea id="textInput" placeholder="Paste text here..."></textarea>
+        <button onclick="extractDOIs()">Extract DOIs</button>
+    </div>
+</body>
+</html>
